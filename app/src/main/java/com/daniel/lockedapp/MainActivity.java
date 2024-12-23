@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
             // Proceed with the app's functionality
         } else {
             // Incorrect password
-            Toast.makeText(this, "Incorrect password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Incorrect password123", Toast.LENGTH_SHORT).show();
         }
     }
 
