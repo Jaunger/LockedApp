@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Unlock Me"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Compass Indicator -->
+    <ImageView
+        android:id="@+id/compassIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_compass"
+        app:layout_constraintEnd_toStartOf="@+id/compassStatus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <View
+        android:id="@+id/compassStatus"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/red_circle"
+        app:layout_constraintStart_toEndOf="@id/compassIcon"
+        app:layout_constraintTop_toTopOf="@id/compassIcon"
+        app:layout_constraintBottom_toBottomOf="@id/compassIcon" />
+
+    <!-- Noise Level Indicator -->
+    <ImageView
+        android:id="@+id/noiseIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_noise"
+        app:layout_constraintEnd_toStartOf="@+id/noiseStatus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/compassIcon" />
+
+    <View
+        android:id="@+id/noiseStatus"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/red_circle"
+        app:layout_constraintStart_toEndOf="@id/noiseIcon"
+        app:layout_constraintTop_toTopOf="@id/noiseIcon"
+        app:layout_constraintBottom_toBottomOf="@id/noiseIcon" />
+
+    <!-- Charging Indicator -->
+    <ImageView
+        android:id="@+id/chargingIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_charging"
+        app:layout_constraintEnd_toStartOf="@+id/chargingStatus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/noiseIcon" />
+
+    <View
+        android:id="@+id/chargingStatus"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/red_circle"
+        app:layout_constraintStart_toEndOf="@id/chargingIcon"
+        app:layout_constraintTop_toTopOf="@id/chargingIcon"
+        app:layout_constraintBottom_toBottomOf="@id/chargingIcon" />
+
+    <!-- Brightness Indicator -->
+    <ImageView
+        android:id="@+id/brightnessIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_brightness"
+        app:layout_constraintEnd_toStartOf="@+id/brightnessStatus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chargingIcon" />
+
+
+    <View
+        android:id="@+id/brightnessStatus"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/red_circle"
+        app:layout_constraintStart_toEndOf="@id/brightnessIcon"
+        app:layout_constraintTop_toTopOf="@id/brightnessIcon"
+        app:layout_constraintBottom_toBottomOf="@id/brightnessIcon" />
+
+    <!-- Password Input -->
+
+    <!-- Login Button -->
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="255dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="24dp"
+        android:hint="Enter Password"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/brightnessStatus" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="278dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:padding="12dp"
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordInput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
