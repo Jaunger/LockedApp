@@ -4,16 +4,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
-import android.hardware.SensorManager;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
@@ -23,18 +23,22 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-
+import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private View compassStatus, noiseStatus, chargingStatus, brightnessStatus, volumeStatus;
+    private View volumeStatus, noiseStatus, chargingStatus, brightnessStatus, wifiStatus;
     private EditText passwordInput;
     private Button loginButton;
     private BatteryManager batteryManager;
     private BroadcastReceiver batteryReceiver;
+    private WifiManager wifiManager;
+    private BroadcastReceiver wifiReceiver;
     private String password;
     boolean isQuiet;
+    boolean isWifiCorrect;
     // ContentObserver for brightness changes
     private ContentObserver brightnessObserver;
 
@@ -44,15 +48,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Initialize system services
         batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        // Register battery listener
-        registerVolumeListener();
-        registerBatteryListener();
+
+        registerListeners();
 
         // Get initial password based on battery percentage
         password = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY) + "";
@@ -60,12 +68,51 @@ public class MainActivity extends AppCompatActivity {
         // Initialize UI elements
         initViews();
 
-        // Register brightness observer
-        registerBrightnessObserver();
-
         // Start noise detection
         startNoiseDetection();
+
     }
+
+    private void registerListeners() {
+        registerVolumeListener();
+        registerBatteryListener();
+        registerWifiListener();
+
+
+        // Register brightness observer
+        registerBrightnessObserver();
+    }
+
+    private void registerWifiListener() {
+        wifiReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                isWifiCorrect = checkWifiName();
+                checkConditionsUpdate();
+
+            }
+        };
+
+        IntentFilter wifiFilter = new IntentFilter();
+        wifiFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        wifiFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        registerReceiver(wifiReceiver, wifiFilter);
+    }
+
+    private boolean checkWifiName() {
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        String wifiName = wifiManager.getConnectionInfo().getSSID();
+        if (wifiName == null || wifiName.isEmpty()) {
+            return false; // No valid SSID found
+        }
+
+        // Some devices return SSID with quotes (e.g., "OpenSesame"), so trim quotes
+        wifiName = wifiName.replaceAll("^\"|\"$", "");
+        return wifiName.equals("OpenSesame");
+    }
+
 
     private void registerVolumeListener() {
         BroadcastReceiver volumeReceiver = new BroadcastReceiver() {
@@ -125,6 +172,14 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED && !isNoiseDetectionRunning) {
+            startNoiseDetection();
+        }
+        isWifiCorrect = checkWifiName();
+    }
 
     private void startNoiseDetection() {
         isNoiseDetectionRunning = true;
@@ -135,9 +190,13 @@ public class MainActivity extends AppCompatActivity {
                     AudioFormat.CHANNEL_IN_MONO,
                     AudioFormat.ENCODING_PCM_16BIT
             );
+
+
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                stopNoiseDetection();
                 return;
             }
+
             AudioRecord audioRecord = new AudioRecord(
                     MediaRecorder.AudioSource.MIC,
                     44100,
@@ -197,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
         boolean isBrightnessLow = getScreenBrightness() < 75;
         boolean isVolumeLow = getVolumeLevel() < 50;  // Example threshold for low volume
 
-        if (isCharging && isBrightnessLow && isVolumeLow && isQuiet) {
+        if (isCharging && isBrightnessLow && isVolumeLow && isQuiet && isWifiCorrect) {
             passwordInput.setEnabled(true);
             loginButton.setEnabled(true);
         } else {
@@ -206,9 +265,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Update UI elements
+        updateStatus(wifiStatus, isWifiCorrect);
         updateStatus(chargingStatus, isCharging);
         updateStatus(brightnessStatus, isBrightnessLow);
-        updateStatus(compassStatus,isVolumeLow); //TODO: change to volume
+        updateStatus(volumeStatus,isVolumeLow);
         updateStatus(noiseStatus, isQuiet);
     }
 
@@ -236,8 +296,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        compassStatus = findViewById(R.id.compassStatus);
+        volumeStatus = findViewById(R.id.volumeStatus);
         noiseStatus = findViewById(R.id.noiseStatus);
+        wifiStatus = findViewById(R.id.wifiStatus);
         chargingStatus = findViewById(R.id.chargingStatus);
         brightnessStatus = findViewById(R.id.brightnessStatus);
         passwordInput = findViewById(R.id.passwordInput);
@@ -255,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
             // Proceed with the app's functionality
         } else {
             // Incorrect password
-            Toast.makeText(this, "Incorrect password123", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Incorrect password", Toast.LENGTH_SHORT).show();
         }
     }
 
