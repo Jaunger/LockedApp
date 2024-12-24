@@ -25,17 +25,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
     private View volumeStatus, noiseStatus, chargingStatus, brightnessStatus, wifiStatus;
     private EditText passwordInput;
     private Button loginButton;
-    private BatteryManager batteryManager;
     private BroadcastReceiver batteryReceiver;
-    private WifiManager wifiManager;
-    private BroadcastReceiver wifiReceiver;
     private String password;
     boolean isQuiet;
     boolean isWifiCorrect;
@@ -57,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Initialize system services
-        batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
+        BatteryManager batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         registerListeners();
@@ -84,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void registerWifiListener() {
-        wifiReceiver = new BroadcastReceiver() {
+        BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
 
@@ -101,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean checkWifiName() {
-        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         String wifiName = wifiManager.getConnectionInfo().getSSID();
         if (wifiName == null || wifiName.isEmpty()) {
