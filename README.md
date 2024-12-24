@@ -27,7 +27,28 @@ click the image to view the video
 
 ---
 
-## How to Unlock 
+## How to Unlock 🔓
+
+To unlock the app, several conditions must be met. Here's a simple breakdown:
+
+1. **Password Setup:**
+   - The password is set based on the battery percentage of the device.
+
+2. **Conditions to Check:**
+   The following conditions must be true for the login button to be enabled:
+   - **Volume:** The volume must be below 50%.
+   - **Noise:** The environment must be quiet. (under 50db)
+   - **Charging:** The device must be plugged in.
+   - **Brightness:** The screen brightness must be lower than 25%.
+   - **Wi-Fi:** The device must be connected to the "OpenSesame" Wi-Fi network.
+
+3. **Unlock Button:**
+   - Once all conditions are met, the login button and password field become active and the user can enter the password.
+
+4. **Unlock:**
+   - Entering the correct password as mentioned before will unlock the app.
+
+If any condition is not met, the login button remains disabled. Once all conditions are satisfied, the app is unlocked! 🔓
 
   
 
