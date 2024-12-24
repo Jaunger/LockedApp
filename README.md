@@ -20,8 +20,8 @@ A unique Android application that challenges users to log in by meeting specific
 
 click the image to view the video
 <p align="center">
-  <a href="https://youtu.be/TiM7ATGbWEg">
-    <img src="2.jpg" alt="UnlockMe" style="width:auto; height:350px;">
+  <a href="https://youtube.com/shorts/iIuqFkZdgkE?feature=share">
+    <img src="UnlockMe_App_Screen.jpg" alt="UnlockMe" style="width:auto; height:350px;">
   </a>
 </p>
 
@@ -37,7 +37,7 @@ To unlock the app, several conditions must be met. Here's a simple breakdown:
 2. **Conditions to Check:**
    The following conditions must be true for the login button to be enabled:
    - **Volume:** The volume must be below 50%.
-   - **Noise:** The environment must be quiet. (under 50db)
+   - **Noise:** The environment must be quiet. (under 20db)
    - **Charging:** The device must be plugged in.
    - **Brightness:** The screen brightness must be lower than 25%.
    - **Wi-Fi:** The device must be connected to the "OpenSesame" Wi-Fi network.
