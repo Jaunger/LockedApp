@@ -21,7 +21,7 @@ A unique Android application that challenges users to log in by meeting specific
 click the image to view the video
 <p align="center">
   <a href="https://youtu.be/TiM7ATGbWEg">
-    <img src="https://img.youtube.com/vi/TiM7ATGbWEg/0.jpg" alt="GameGuru Demo" style="width:60%; height:auto;">
+    <img src="2.jpg" alt="GameGuru Demo" style="width:60%; height:auto;">
   </a>
 </p>
 
