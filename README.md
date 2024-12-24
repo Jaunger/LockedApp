@@ -20,7 +20,7 @@ A unique Android application that challenges users to log in by meeting specific
 
 click the image to view the video
 <p align="center">
-  <a href="https://youtu.be/TiM7ATGbWEg">
+  <a href="https://youtube.com/shorts/iIuqFkZdgkE?feature=share">
     <img src="2.jpg" alt="UnlockMe" style="width:auto; height:350px;">
   </a>
 </p>
