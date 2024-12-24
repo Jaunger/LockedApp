@@ -27,9 +27,22 @@ click the image to view the video
 
 ---
 
+
+## Permissions 🔐
+
+The app requires the following permissions to function properly:
+
+- **`ACCESS_WIFI_STATE`**: To verify the connected Wi-Fi network.
+- **`ACCESS_FINE_LOCATION`** : Aswell for Wi-Fi network.
+- **`RECORD_AUDIO`**: For detecting noise levels in the surrounding environment.
+
+Ensure these permissions are granted to avoid app malfunctions.
+
+---
+
 ## How to Unlock 🔓
 
-To unlock the app, several conditions must be met. Here's a simple breakdown:
+To unlock the app, several conditions must be met. Here's a simple breakdown: (ensure permissions are enabled)
 
 1. **Password Setup:**
    - The password is set based on the battery percentage of the device.
@@ -49,23 +62,6 @@ To unlock the app, several conditions must be met. Here's a simple breakdown:
    - Entering the correct password as mentioned before will unlock the app.
 
 If any condition is not met, the login button remains disabled. Once all conditions are satisfied, the app is unlocked! 🔓
-
-  
-
-
-
-
----
-
-## Permissions 🔐
-
-The app requires the following permissions to function properly:
-
-- **`ACCESS_WIFI_STATE`**: To verify the connected Wi-Fi network.
-- **`ACCESS_FINE_LOCATION`** : Aswell for Wi-Fi network.
-- **`RECORD_AUDIO`**: For detecting noise levels in the surrounding environment.
-
-Ensure these permissions are granted to avoid app malfunctions.
 
 ---
 
