@@ -62,6 +62,7 @@ If any condition is not met, the login button remains disabled. Once all conditi
 The app requires the following permissions to function properly:
 
 - **`ACCESS_WIFI_STATE`**: To verify the connected Wi-Fi network.
+- **`ACCESS_FINE_LOCATION`** : Aswell for Wi-Fi network.
 - **`RECORD_AUDIO`**: For detecting noise levels in the surrounding environment.
 
 Ensure these permissions are granted to avoid app malfunctions.
