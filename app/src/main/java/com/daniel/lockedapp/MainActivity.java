@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         String wifiName = wifiManager.getConnectionInfo().getSSID();
         if (wifiName == null || wifiName.isEmpty()) {
-            return false; // No valid SSID found
+            return false;
         }
 
         // Some devices return SSID with quotes (e.g., "OpenSesame"), so trim quotes
@@ -255,9 +255,11 @@ public class MainActivity extends AppCompatActivity {
         if (isCharging && isBrightnessLow && isVolumeLow && isQuiet && isWifiCorrect) {
             passwordInput.setEnabled(true);
             loginButton.setEnabled(true);
+            loginButton.setBackgroundTintList(getColorStateList(R.color.colorPrimary));
         } else {
             passwordInput.setEnabled(false);
             loginButton.setEnabled(false);
+            loginButton.setBackgroundTintList(getColorStateList(R.color.colorDisabled));
         }
 
         // Update UI elements
