@@ -1,5 +1,6 @@
 package com.daniel.lockedapp;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -57,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         registerListeners();
+
+//        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.RECORD_AUDIO}, 1);
+//        }
+//        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_WIFI_STATE}, 1);
+//        }
+//        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+//        }
 
         // Get initial password based on battery percentage
         password = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY) + "";
@@ -217,13 +228,13 @@ public class MainActivity extends AppCompatActivity {
                     double db = 20 * Math.log10(rms);
 
                     // Update UI if noise level exceeds threshold
-                    isQuiet = db < 50;
+                    isQuiet = db < 20;
                     runOnUiThread(this::checkConditionsUpdate);
 
                 }
 
                 try {
-                    Thread.sleep(500); // Adjust sampling rate as needed
+                    Thread.sleep(100); // Adjust sampling rate as needed
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
